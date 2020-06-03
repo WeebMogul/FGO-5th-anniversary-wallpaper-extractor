@@ -2,15 +2,6 @@ import os
 import requests
 from tqdm import tqdm
 
-'''
-1. Create directory.
-2. Put all the numbers in an array or list.
-3. Attach no. to existing link.
-4. Extract the link using the number 
-5. Place in directory 
-6. Convert to 1920 x 1080 resolution using ffmpeg
-'''
-
 # For extracting the images 
 def image_extractor(url, img_names, folder_dir):
     """Used for extracting the images from the website.
