@@ -1,7 +1,6 @@
 import os
 import requests
 from tqdm import tqdm
-from cv2 import cv2
 
 '''
 1. Create directory.
@@ -55,22 +54,6 @@ def get_dem_wallpapers(fold_name,folder,img,wall_no):
 
     wall_names = [str(i).zfill(2) for i in range(1,wall_no)]
     image_extractor(img, wall_names, new_folder_path)
-
-# For converting to 1920 x 1080p 
-'''
-def resolution_convert(path, arr):
-
-    for i in tqdm(range(len(arr))):
-
-        file_no = 's'+arr[i]+'.jpg'
-        img_name = os.path.join(path, file_no)
-        img = cv2.imread(img_name,cv2.IMREAD_UNCHANGED)
-        
-        new = cv2.resize(img, (1920, 1080), interpolation=cv2.INTER_AREA)
-        new_file = 's'+arr[i]+'_upscaled'+'.jpg'
-        folder_path = os.path.join(path, new_file)
-        cv2.imwrite(folder_path, new)
-'''
 
 img_links = ['https://5th.fate-go.jp/assets/img/slide_0504_jzgkaw3b/s01.jpg','https://5th.fate-go.jp/assets/img/slide_0525_r6dwy7nt/s01.jpg','https://5th.fate-go.jp/assets/img/slide_0603_d486tjek/s01.jpg']
 wall_no = [12,7,9]
