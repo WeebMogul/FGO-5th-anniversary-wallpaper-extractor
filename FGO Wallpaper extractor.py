@@ -58,6 +58,12 @@ def get_dem_wallpapers(fold_name,folder,img,wall_no):
     image_extractor(img, wall_names, new_folder_path)
 
 def merge_folders(folder):
+    """For merging folders.
+
+    Args:
+        folder (str): Name of the folder.
+    """
+
 
     dirs = os.listdir(folder)
     
@@ -72,52 +78,48 @@ def merge_folders(folder):
     else :
         pass
 
-# For converting to 1920 x 1080p 
-'''
-def resolution_convert(path, arr):
-
-    for i in tqdm(range(len(arr))):
-
-        file_no = 's'+arr[i]+'.jpg'
-        img_name = os.path.join(path, file_no)
-        img = cv2.imread(img_name,cv2.IMREAD_UNCHANGED)
-        
-        new = cv2.resize(img, (1920, 1080), interpolation=cv2.INTER_AREA)
-        new_file = 's'+arr[i]+'_upscaled'+'.jpg'
-        folder_path = os.path.join(path, new_file)
-        cv2.imwrite(folder_path, new)
-'''
-
 img_links = ['https://5th.fate-go.jp/assets/img/slide_0504_jzgkaw3b/s01.jpg',
             'https://5th.fate-go.jp/assets/img/slide_0525_r6dwy7nt/s01.jpg',
             'https://5th.fate-go.jp/assets/img/slide_0603_d486tjek/s01.jpg',
-            'https://5th.fate-go.jp/assets/img/slide_0613_g6z3i5ts/s01.jpg']
+            'https://5th.fate-go.jp/assets/img/slide_0613_g6z3i5ts/s01.jpg',
+            'https://5th.fate-go.jp/assets/img/slide_0706_x2szuqep/s01.jpg']
 
-wall_no = [12,7,9,8]
-fold_name = ['April Collection','May Collection','June Collection 1', 'June Collection 2']
+wall_no = [12,7,9,8,10]
+fold_name = ['April Collection','May Collection','June Collection 1', 'June Collection 2','July Collection']
 
 parent_dir = os.getcwd()
 main_folder_name = "FGO 5th anniversary wallpapers"
 folder = os.path.join(parent_dir, main_folder_name)
 
-months = 4
+months = len(wall_no)
 
 if not os.path.exists(folder):
 
     os.mkdir(folder)
 
     for i in range(0,months):
+
        get_dem_wallpapers(fold_name[i],folder,img_links[i],wall_no[i])
        print(f"\n Downloaded the {fold_name[i]} wallpapers \n")
+
 else :
     for i in range(0,months):
         
-        if os.path.exists(os.path.join(folder,fold_name[i])):
+        if 'June Collection' in fold_name[i]:
+
+            junedir = 'June Collection'
+            junefile_dir = os.path.join(folder,junedir + '/' + fold_name[i])
+
+            if os.path.exists(junefile_dir):
+                print(f'The {fold_name[i]} in the June Collection folder exists')
+
+
+        elif os.path.exists(os.path.join(folder,fold_name[i])):
             print(f'The {fold_name[i]} exists')
-           #  merge_folders(folder)
 
         else :
             get_dem_wallpapers(fold_name[i],folder,img_links[i],wall_no[i])
             print(f"\n Downloaded the {fold_name[i]} wallpapers \n")
-    merge_folders(folder)
+    
+merge_folders(folder)
 
