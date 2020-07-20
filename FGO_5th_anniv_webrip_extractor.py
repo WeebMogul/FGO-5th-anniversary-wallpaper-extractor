@@ -64,28 +64,39 @@ def merge_folders(folder):
         folder (str): Name of the folder.
     """
 
-
     dirs = os.listdir(folder)
     
-    folds = ['June Collection 1',
-            'June Collection 2']
+    june_folds = ['June Collection 1',
+                  'June Collection 2']
+
+    july_folds = ['July Collection 1',
+                  'July Collection 2']
+
 
     if not os.path.exists(os.path.join(folder,'June Collection')):
         os.mkdir(os.path.join(folder,'June Collection'))
         for i in dirs:
-            if i in folds:
+            if i in june_folds:
                 shutil.move(os.path.join(folder,i),os.path.join(folder,'June Collection'))
-    else :
+
+    if not os.path.exists(os.path.join(folder,'July Collection')):
+        os.mkdir(os.path.join(folder,'July Collection'))
+        for i in dirs:
+            if i in july_folds:
+                shutil.move(os.path.join(folder,i),os.path.join(folder,'July Collection'))
+    
+    else:
         pass
 
 img_links = ['https://5th.fate-go.jp/assets/img/slide_0504_jzgkaw3b/s01.jpg',
             'https://5th.fate-go.jp/assets/img/slide_0525_r6dwy7nt/s01.jpg',
             'https://5th.fate-go.jp/assets/img/slide_0603_d486tjek/s01.jpg',
             'https://5th.fate-go.jp/assets/img/slide_0613_g6z3i5ts/s01.jpg',
-            'https://5th.fate-go.jp/assets/img/slide_0706_x2szuqep/s01.jpg']
+            'https://5th.fate-go.jp/assets/img/slide_0706_x2szuqep/s01.jpg',
+            'https://5th.fate-go.jp/assets/img/slide_0720_t5sh2mdx/s01.jpg']
 
-wall_no = [12,7,9,8,10]
-fold_name = ['April Collection','May Collection','June Collection 1', 'June Collection 2','July Collection']
+wall_no = [12,7,9,8,10,8]
+fold_name = ['April Collection','May Collection','June Collection 1', 'June Collection 2','July Collection 1','July Collection 2']
 
 parent_dir = os.getcwd()
 main_folder_name = "FGO 5th anniversary wallpapers"
@@ -93,33 +104,44 @@ folder = os.path.join(parent_dir, main_folder_name)
 
 months = len(wall_no)
 
-if not os.path.exists(folder):
+def FGO_5th_anniv_wallpaper_webrip():
 
-    os.mkdir(folder)
+    if not os.path.exists(folder):
 
-    for i in range(0,months):
+        os.mkdir(folder)
 
-       get_dem_wallpapers(fold_name[i],folder,img_links[i],wall_no[i])
-       print(f"\n Downloaded the {fold_name[i]} wallpapers \n")
+        for i in range(0,months):
 
-else :
-    for i in range(0,months):
-        
-        if 'June Collection' in fold_name[i]:
-
-            junedir = 'June Collection'
-            junefile_dir = os.path.join(folder,junedir + '/' + fold_name[i])
-
-            if os.path.exists(junefile_dir):
-                print(f'The {fold_name[i]} in the June Collection folder exists')
-
-
-        elif os.path.exists(os.path.join(folder,fold_name[i])):
-            print(f'The {fold_name[i]} exists')
-
-        else :
+            print(f"\n Downloading the {fold_name[i]} wallpapers \n")
             get_dem_wallpapers(fold_name[i],folder,img_links[i],wall_no[i])
             print(f"\n Downloaded the {fold_name[i]} wallpapers \n")
+
+    else :
+        for i in range(0,months):
+        
+            if 'June Collection' in fold_name[i]:
+
+                junedir = 'June Collection'
+                junefile_dir = os.path.join(folder,junedir + '/' + fold_name[i])
+
+                if os.path.exists(junefile_dir):
+                    print(f'The {fold_name[i]} in the June Collection folder exists')
+        
+            elif 'July Collection' in fold_name[i]:
+                julydir = 'July Collection'
+                julyfile_dir = os.path.join(folder,julydir + '/' + fold_name[i])
+
+                if os.path.exists(julyfile_dir):
+                    print(f'The {fold_name[i]} in the July Collection folder exists')
+
+
+            elif os.path.exists(os.path.join(folder,fold_name[i])):
+                print(f'The {fold_name[i]} exists')
+
+            else :
+                print(f"\n Downloading the {fold_name[i]} wallpapers \n")
+                get_dem_wallpapers(fold_name[i],folder,img_links[i],wall_no[i])
+                print(f"\n Downloaded the {fold_name[i]} wallpapers \n")
     
-merge_folders(folder)
+    merge_folders(folder)
 
